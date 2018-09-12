@@ -8,6 +8,8 @@
 
 import UIKit
 
+var mainVC = ViewController()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

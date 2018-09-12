@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC03A89E21450CCC00B2DB10 /* MemoryTestScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC03A89D21450CCC00B2DB10 /* MemoryTestScore.swift */; };
 		CC07E37A1EF01567002B753D /* TrainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07E3781EF01567002B753D /* TrainerCell.swift */; };
 		CC07E37B1EF01567002B753D /* TrainerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC07E3791EF01567002B753D /* TrainerCell.xib */; };
 		CC07E37D1EF02345002B753D /* ReactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07E37C1EF02345002B753D /* ReactionView.swift */; };
@@ -16,11 +17,18 @@
 		CC1F211B1EEFF5E600328F48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1F21191EEFF5E600328F48 /* Main.storyboard */; };
 		CC1F211D1EEFF5E600328F48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC1F211C1EEFF5E600328F48 /* Assets.xcassets */; };
 		CC1F21201EEFF5E600328F48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1F211E1EEFF5E600328F48 /* LaunchScreen.storyboard */; };
+		CC47A979213DC07D003B3F1E /* IncorrectAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC47A977213DC07D003B3F1E /* IncorrectAnswerCell.swift */; };
+		CC47A97A213DC07D003B3F1E /* IncorrectAnswerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC47A978213DC07D003B3F1E /* IncorrectAnswerCell.xib */; };
+		CC47A97D213DD774003B3F1E /* IncorrectAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC47A97B213DD774003B3F1E /* IncorrectAnswer.swift */; };
 		CC6B4F58213A754900414EA2 /* ArithmeticStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6B4F57213A754900414EA2 /* ArithmeticStart.swift */; };
 		CC6B4F5A213A82D800414EA2 /* ArithmeticTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6B4F59213A82D800414EA2 /* ArithmeticTest.swift */; };
+		CCC89760213BE61700671DB6 /* ArithmeticResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC8975F213BE61700671DB6 /* ArithmeticResult.swift */; };
+		CCCEEBC32145D98B006FC3E7 /* MemoryTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEEBC22145D98B006FC3E7 /* MemoryTestView.swift */; };
+		CCCEEBC52145DB0A006FC3E7 /* MemoryAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCEEBC42145DB0A006FC3E7 /* MemoryAnswerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CC03A89D21450CCC00B2DB10 /* MemoryTestScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTestScore.swift; sourceTree = "<group>"; };
 		CC07E3781EF01567002B753D /* TrainerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainerCell.swift; sourceTree = "<group>"; };
 		CC07E3791EF01567002B753D /* TrainerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrainerCell.xib; sourceTree = "<group>"; };
 		CC07E37C1EF02345002B753D /* ReactionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionView.swift; sourceTree = "<group>"; };
@@ -32,8 +40,14 @@
 		CC1F211C1EEFF5E600328F48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC1F211F1EEFF5E600328F48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC1F21211EEFF5E600328F48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC47A977213DC07D003B3F1E /* IncorrectAnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncorrectAnswerCell.swift; sourceTree = "<group>"; };
+		CC47A978213DC07D003B3F1E /* IncorrectAnswerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncorrectAnswerCell.xib; sourceTree = "<group>"; };
+		CC47A97B213DD774003B3F1E /* IncorrectAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncorrectAnswer.swift; sourceTree = "<group>"; };
 		CC6B4F57213A754900414EA2 /* ArithmeticStart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArithmeticStart.swift; sourceTree = "<group>"; };
 		CC6B4F59213A82D800414EA2 /* ArithmeticTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArithmeticTest.swift; sourceTree = "<group>"; };
+		CCC8975F213BE61700671DB6 /* ArithmeticResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArithmeticResult.swift; sourceTree = "<group>"; };
+		CCCEEBC22145D98B006FC3E7 /* MemoryTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryTestView.swift; sourceTree = "<group>"; };
+		CCCEEBC42145DB0A006FC3E7 /* MemoryAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryAnswerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,13 +82,20 @@
 			children = (
 				CC1F21151EEFF5E600328F48 /* AppDelegate.swift */,
 				CC1F21171EEFF5E600328F48 /* ViewController.swift */,
+				CC07E3781EF01567002B753D /* TrainerCell.swift */,
+				CC07E3791EF01567002B753D /* TrainerCell.xib */,
 				CC1F21191EEFF5E600328F48 /* Main.storyboard */,
 				CC07E37C1EF02345002B753D /* ReactionView.swift */,
 				CC07E37E1EF02F5D002B753D /* Memory.swift */,
+				CCCEEBC22145D98B006FC3E7 /* MemoryTestView.swift */,
+				CCCEEBC42145DB0A006FC3E7 /* MemoryAnswerView.swift */,
+				CC03A89D21450CCC00B2DB10 /* MemoryTestScore.swift */,
 				CC6B4F57213A754900414EA2 /* ArithmeticStart.swift */,
 				CC6B4F59213A82D800414EA2 /* ArithmeticTest.swift */,
-				CC07E3781EF01567002B753D /* TrainerCell.swift */,
-				CC07E3791EF01567002B753D /* TrainerCell.xib */,
+				CCC8975F213BE61700671DB6 /* ArithmeticResult.swift */,
+				CC47A97B213DD774003B3F1E /* IncorrectAnswer.swift */,
+				CC47A977213DC07D003B3F1E /* IncorrectAnswerCell.swift */,
+				CC47A978213DC07D003B3F1E /* IncorrectAnswerCell.xib */,
 				CC1F211C1EEFF5E600328F48 /* Assets.xcassets */,
 				CC1F211E1EEFF5E600328F48 /* LaunchScreen.storyboard */,
 				CC1F21211EEFF5E600328F48 /* Info.plist */,
@@ -143,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC1F21201EEFF5E600328F48 /* LaunchScreen.storyboard in Resources */,
+				CC47A97A213DC07D003B3F1E /* IncorrectAnswerCell.xib in Resources */,
 				CC07E37B1EF01567002B753D /* TrainerCell.xib in Resources */,
 				CC1F211D1EEFF5E600328F48 /* Assets.xcassets in Resources */,
 				CC1F211B1EEFF5E600328F48 /* Main.storyboard in Resources */,
@@ -159,10 +181,16 @@
 				CC1F21181EEFF5E600328F48 /* ViewController.swift in Sources */,
 				CC07E37A1EF01567002B753D /* TrainerCell.swift in Sources */,
 				CC6B4F58213A754900414EA2 /* ArithmeticStart.swift in Sources */,
+				CCCEEBC32145D98B006FC3E7 /* MemoryTestView.swift in Sources */,
 				CC1F21161EEFF5E600328F48 /* AppDelegate.swift in Sources */,
+				CCCEEBC52145DB0A006FC3E7 /* MemoryAnswerView.swift in Sources */,
+				CC03A89E21450CCC00B2DB10 /* MemoryTestScore.swift in Sources */,
 				CC6B4F5A213A82D800414EA2 /* ArithmeticTest.swift in Sources */,
 				CC07E37D1EF02345002B753D /* ReactionView.swift in Sources */,
 				CC07E37F1EF02F5D002B753D /* Memory.swift in Sources */,
+				CCC89760213BE61700671DB6 /* ArithmeticResult.swift in Sources */,
+				CC47A97D213DD774003B3F1E /* IncorrectAnswer.swift in Sources */,
+				CC47A979213DC07D003B3F1E /* IncorrectAnswerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +320,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.themoon2000.Brain-Trainer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -306,6 +335,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.themoon2000.Brain-Trainer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

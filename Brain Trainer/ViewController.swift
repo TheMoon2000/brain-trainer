@@ -8,20 +8,29 @@
 
 import UIKit
 
+let bannerTint = UIColor(red: 94.0 / 255, green: 59.0 / 255, blue: 164.0 / 255, alpha: 1)
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var trainerTable: UITableView!
+    @IBOutlet weak var bannerView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mainVC = self
+        
+        bannerView.backgroundColor = bannerTint
+        
         // Register the trainer table view cell
         let trainerNib = UINib(nibName: "TrainerCell", bundle: Bundle.main)
         trainerTable.register(trainerNib, forCellReuseIdentifier: "Trainer Cell")
+        trainerTable.contentInset = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -37,13 +46,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == trainerTable {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Trainer Cell") as! TrainerCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Trainer Cell") as! TrainerCell
+        if tableView == trainerTable && indexPath.row < 3 {
             cell.textLabel?.text = "Test \(indexPath.row)"
+            return cell
+        } else {
+            cell.textLabel?.text = "Achievements"
             return cell
         }
         
-        return TrainerCell()
+//        return TrainerCell()
     }
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
@@ -69,11 +81,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.performSegue(withIdentifier: "Memory Trainer", sender: self)
             case 2:
                 self.performSegue(withIdentifier: "Mental Arithmetics", sender: self)
+            case 3:
+                print("Achievements")
             default:
                 break
             }
         }
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Memory Trainer" {
+            let vc = segue.destination as! MemoryViewController
+            vc.mainVC = self
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -83,4 +104,3 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 
 }
-

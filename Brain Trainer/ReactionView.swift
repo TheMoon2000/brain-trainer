@@ -10,6 +10,7 @@ import UIKit
 
 class ReactionViewController: UIViewController {
     
+    @IBOutlet weak var bannerView: UIView!
     @IBOutlet weak var colorbutton: UIButton!
     @IBOutlet weak var prepareButton: UIButton!
     @IBOutlet weak var highscore: UILabel!
@@ -29,6 +30,8 @@ class ReactionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        bannerView.backgroundColor = bannerTint
 
         colorbutton.backgroundColor = red
         colorbutton.layer.cornerRadius = 6

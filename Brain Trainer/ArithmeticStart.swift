@@ -8,9 +8,13 @@
 
 import UIKit
 
+enum QuestionType: Int {
+    case addition = 0, multiplication, both
+}
+
 class ArithmeticStartViewController: UIViewController {
     
-    @IBOutlet weak var startView: UIView!
+    @IBOutlet weak var bannerView: UIView!
     @IBOutlet weak var beginButton: UIButton!
     @IBOutlet weak var numberOfQuestions: UILabel!
     @IBOutlet weak var numberOfQuestions_bar: UISlider!
@@ -20,6 +24,9 @@ class ArithmeticStartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bannerView.backgroundColor = bannerTint
+        
         // Customize the begin test button
         beginButton.layer.borderWidth = 1
         beginButton.layer.cornerRadius = 21
@@ -66,7 +73,7 @@ class ArithmeticStartViewController: UIViewController {
         testInfo = ArithmeticTestInfo(
             q_count: Int(numberOfQuestions_bar.value),
             highest_term: Int(highestTerm_bar.value),
-            q_type: questionType.selectedSegmentIndex,
+            q_type: QuestionType.init(rawValue: questionType.selectedSegmentIndex)!,
             parent: self)
         self.performSegue(withIdentifier: "Begin Arithmetics Test", sender: self)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {

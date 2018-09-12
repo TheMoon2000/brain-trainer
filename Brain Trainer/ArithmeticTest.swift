@@ -13,10 +13,10 @@ struct ArithmeticTestInfo {
     
     var q_count: Int
     var highest_term: Int
-    var q_type: Int // 0 = addition, 1 = multiplication, 2 = both
+    var q_type: QuestionType // 0 = addition, 1 = multiplication, 2 = both
     let parentVC: ArithmeticStartViewController?
     
-    init(q_count: Int, highest_term: Int, q_type: Int, parent: ArithmeticStartViewController) {
+    init(q_count: Int, highest_term: Int, q_type: QuestionType, parent: ArithmeticStartViewController) {
         self.q_count = q_count
         self.highest_term = highest_term
         self.q_type = q_type
@@ -26,7 +26,7 @@ struct ArithmeticTestInfo {
     init() {
         q_count = 0
         highest_term = 0
-        q_type = 0
+        q_type = .addition
         parentVC = nil
     }
 }
@@ -36,6 +36,8 @@ var testInfo = ArithmeticTestInfo()
 
 class ArithmeticTestViewController: UIViewController {
     
+    @IBOutlet weak var bannerView: UIView!
+    @IBOutlet weak var pageTitle: UILabel!
     @IBOutlet weak var problem: UILabel!
     @IBOutlet weak var answer: UILabel!
     @IBOutlet weak var progress_bar: UIProgressView!
@@ -58,20 +60,33 @@ class ArithmeticTestViewController: UIViewController {
     var currentQuestionNumber = 1
     var numberOfCorrectAnswers = 0
     var currentProblem = (problem: "", answer: "")
-
+    var startTime = Date()
+    var endTime = Date()
+    var incorrectCases = [(problem: String, index: Int, answer: String, userAnswer: String)]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         problem.text = ""
         answer.text = "0"
         
-//        customButton(buttons: [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, minus, delete], borderColor: outlineColor)
+        let tint = UIColor(red: 166.0/255, green: 130.0/255, blue: 1, alpha: 1)
+        
+        [b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, minus].forEach({
+            $0!.setTitleColor(tint, for: .highlighted)
+        })
+        
+        bannerView.backgroundColor = bannerTint
         
         if UIDevice.modelName.hasSuffix("iPhone X") {
             if let canvasTopGuide = self.view.constraints.filter({$0.identifier == "topguide"}).first {
                 canvasTopGuide.constant = -44
             }
         }
+        
+        startTime = Date()
+        
+        pageTitle.text = "Arithmetic Exercise - Q1"
         
         nextQuestion()
     }
@@ -85,21 +100,29 @@ class ArithmeticTestViewController: UIViewController {
     
     
     func nextQuestion() {
-        if currentQuestionNumber == testInfo.q_count {
-            // Finished test, perform segue
-            
+        if currentQuestionNumber > testInfo.q_count {
+            // Finished test
+            nextButton.isEnabled = false
+            endTime = Date()
+            arithmeticResult = ArithmeticTestResult(totalQuestions: testInfo.q_count, highestTerm: testInfo.highest_term, correctAnswers: numberOfCorrectAnswers, duration: endTime.timeIntervalSince(startTime), questionType: testInfo.q_type, testVC: self, incorrectCases: incorrectCases)
+            self.performSegue(withIdentifier: "arithmetic_result", sender: self)
         } else {
             currentProblem = generateProblem(highest_term: testInfo.highest_term, problem_type: testInfo.q_type)
-            problem.text = currentProblem.problem
+            problem.text = currentProblem.problem + " = ?"
             answer.text = "0"
-
-            nextButton.setTitle("Question \(currentQuestionNumber)/\(testInfo.q_count) →", for: .normal)
+            if testInfo.q_count > currentQuestionNumber {
+                nextButton.setTitle("Question \(currentQuestionNumber + 1)/\(testInfo.q_count) →", for: .normal)
+            } else {
+                nextButton.setTitle("Finish Test", for: .normal)
+            }
         }
     }
     
     
     // 0 - 9 digits
     @IBAction func press_digit(_ sender: UIButton) {
+        sender.layer.borderWidth = 0
+        sender.backgroundColor = nil
         if answer.text == "0" {
             answer.text = sender.currentTitle == "0" ? "0" : sender.currentTitle
         } else if answer.text == "–" {
@@ -110,11 +133,20 @@ class ArithmeticTestViewController: UIViewController {
     }
 
     @IBAction func press_minus(_ sender: UIButton) {
+        sender.layer.borderWidth = 0
+        sender.backgroundColor = nil
         assert(answer.text != nil, "Answer field is nil!")
         let n = answer.text!.replacingOccurrences(of: "–", with: "-")
+        if n == "-" {answer.text = "0"; return}
         if n == "0" {answer.text = "–"} else {
             answer.text = Int(n)! >= 0 ? "–" + n : String(abs(Int32(n) ?? 0))
         }
+    }
+    
+    @IBAction func press_button(_ sender: UIButton) {
+        sender.layer.borderColor = UIColor(white: 0.8, alpha: 1).cgColor
+        sender.layer.borderWidth = 1.9
+        sender.backgroundColor = UIColor(white: 0.97, alpha: 0.9)
     }
     
     @IBAction func clearAnswer(_ sender: UIButton) {
@@ -122,7 +154,7 @@ class ArithmeticTestViewController: UIViewController {
     }
     
     @IBAction func deleteDigit(_ sender: UIButton) {
-        if answer.text!.lengthOfBytes(using: .utf8) == 1 {
+        if answer.text!.lengthOfBytes(using: .utf8) == 1 || answer.text == "–" {
             answer.text = "0"
         } else if answer.text!.hasPrefix("–") {
             answer.text = String(Int(answer.text!.replacingOccurrences(of: "–", with: "-"))! / 10)
@@ -134,9 +166,12 @@ class ArithmeticTestViewController: UIViewController {
     @IBAction func proceedNext(_ sender: UIButton) {
         if answer.text!.replacingOccurrences(of: "–", with: "-") == currentProblem.answer {
             numberOfCorrectAnswers += 1
+        } else {
+            incorrectCases.append((problem.text!, currentQuestionNumber, currentProblem.answer.replacingOccurrences(of: "-", with: "–"), answer.text!))
         }
-        currentQuestionNumber += 1
         progress_bar.progress = Float(currentQuestionNumber) / Float(testInfo.q_count)
+        currentQuestionNumber += 1
+        pageTitle.text = "Arithmetic Exercise - Q\(currentQuestionNumber)"
         nextQuestion()
     }
 
@@ -145,16 +180,14 @@ class ArithmeticTestViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func generateProblem(highest_term h: Int, problem_type: Int) ->(problem: String, answer: String) {
+    func generateProblem(highest_term h: Int, problem_type: QuestionType) ->(problem: String, answer: String) {
         switch problem_type {
-        case 0:
+        case .addition:
             return generateAdditionProblem(h: h)
-        case 1:
+        case .multiplication:
             return generateMultiplicationProblem(h: h)
-        case 2:
+        case .both:
             return arc4random_uniform(2) == 0 ? generateAdditionProblem(h: h) : generateMultiplicationProblem(h: h)
-        default:
-            return ("","")
         }
     }
     
@@ -172,20 +205,27 @@ class ArithmeticTestViewController: UIViewController {
     }
     
     func generateMultiplicationProblem(h: Int) -> (problem: String, answer: String) {
-        var terms = [Int]()
-        var answer = 0
-        for _ in 0..<2 {
-            terms.append(10 + Int(arc4random_uniform(UInt32(h - 9)))) // A number from -h to h
-            answer *= terms.last! // Last term guaranteed to exist
+        
+        if arc4random_uniform(2) == 0 {
+            var terms = [Int]()
+            var answer = 1
+            for _ in 0..<2 {
+                terms.append(10 + Int(arc4random_uniform(UInt32(h - 9)))) // A number from -h to h
+                answer *= terms.last! // Last term guaranteed to exist
+            }
+            let p = terms.map({String($0)}).joined(separator: " × ")
+            return (p, String(answer))
+        } else {
+            let divisor = 2 + Int(arc4random_uniform(UInt32(h - 1)))
+            let answer = 5 + Int(arc4random_uniform(UInt32(h - 4)))
+            let dividend = divisor * answer
+            let p = "\(dividend) ÷ \(divisor)"
+            return (p, String(answer))
         }
-        let p = terms.map({String($0)}).joined(separator: " × ")
-        return (p, String(answer))
     }
     
     @IBAction func dismissView(_ sender: UIButton) {
-        self.dismiss(animated: false, completion: {
-            testInfo.parentVC?.dismiss(animated: true, completion: nil)
-        })
+        mainVC.dismiss(animated: true, completion: nil)
     }
 
     /*
